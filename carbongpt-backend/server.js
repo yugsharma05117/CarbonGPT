@@ -10,7 +10,7 @@ const { routeModel } = require("./utils/router");
 
 // 🔹 AI Services
 const { generateResponse } = require("./services/aiService"); // Groq
-const { callOpenRouter } = require("./services/OpenRouterService"); // OpenRouter
+const { callOpenRouter } = require("./services/openRouterService"); // OpenRouter
 
 const app = express();
 
