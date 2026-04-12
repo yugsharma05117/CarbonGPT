@@ -4,7 +4,7 @@ export const sendPrompt = async (prompt) => {
   try {
     console.log("Sending request to backend...");
 
-    const res = await fetch(`${API}/analyze`, {
+    const res = await fetch(`${API}/prompt`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
