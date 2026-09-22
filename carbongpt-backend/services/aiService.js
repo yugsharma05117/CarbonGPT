@@ -25,7 +25,7 @@ async function callGroq(prompt) {
 
     const data = await res.json();
 
-    console.log("Groq Success:", data.choices[0]?.message?.content?.substring(0, 100) + '...');
+
 
     return {
       text: data.choices?.[0]?.message?.content || "No response from Groq",

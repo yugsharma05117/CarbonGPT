@@ -23,7 +23,7 @@ async function generateResponse(prompt) {
       throw new Error(data?.error?.message || "Request failed");
     }
 
-    console.log("GROQ RESPONSE:", data);
+
 
     return {
       text: data.choices?.[0]?.message?.content || "No response",

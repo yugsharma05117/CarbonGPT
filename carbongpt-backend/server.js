@@ -40,24 +40,15 @@ app.get("/", (req, res) => {
 
 // 🔹 Optimizer status endpoint
 app.get("/optimizer-status", async (req, res) => {
-  const flaskAvailable = await isPythonOptimizerAvailable();
-  const fastapiAvailable = await isFastAPIOptimizerAvailable();
-
   res.json({
-    flaskOptimizer: flaskAvailable ? "online" : "offline",
-    fastapiOptimizer: fastapiAvailable ? "online" : "offline",
-    fallback: "js-basic",
-    message: flaskAvailable
-      ? "🐍 Flask optimizer is active (port 5001)"
-      : fastapiAvailable
-        ? "⚡ FastAPI optimizer is active (port 8000)"
-        : "⚠️ Using basic JS optimizer (start a Python service for advanced features)"
+    optimizer: "js-advanced",
+    status: "online",
+    message: "✅ Using advanced JS optimizer (full 600+ pattern engine — no Python needed)"
   });
 });
 
 // 🔹 Main API route  
 app.post("/prompt", async (req, res) => {
-  console.log("API HIT");
 
   try {
     const { prompt } = req.body;
@@ -77,8 +68,6 @@ app.post("/prompt", async (req, res) => {
     const optimizerStats = optimizationResult.stats;
     
     const tokensAfter = countTokens(optimizedPrompt);
-    
-    console.log(`📊 Optimizer: ${optimizerSource} | ${tokensBefore} → ${tokensAfter} tokens (${optimizerStats?.reductionPercent || 0}% word reduction)`);
 
     // ✅ Decide model
     const modelType = routeModel(tokensAfter); // "SLM" or "LLM"
@@ -91,11 +80,9 @@ app.post("/prompt", async (req, res) => {
     let modelUsed = "";
 
     if (modelType === "SLM") {
-      console.log("Using SLM (Groq)");
       modelResponse = await generateResponse(finalPrompt);
       modelUsed = "Groq (SLM)";
     } else {
-      console.log("Using LLM (OpenRouter)");
       modelResponse = await callOpenRouter(finalPrompt);
       modelUsed = "OpenRouter (LLM)";
     }
@@ -151,28 +138,6 @@ const PORT = 5000;
 
 app.listen(PORT, async () => {
   console.log(`\n🚀 Server running on http://localhost:${PORT}`);
-  
-  // Check if Flask optimizer is available on startup
-  const flaskAvailable = await isPythonOptimizerAvailable();
-  if (flaskAvailable) {
-    console.log("🐍 Flask optimizer microservice: ✅ ONLINE (port 5001)");
-  } else {
-    console.log("⚠️  Flask optimizer microservice: ❌ OFFLINE");
-  }
-
-  // Check if FastAPI optimizer is available on startup
-  const fastapiAvailable = await isFastAPIOptimizerAvailable();
-  if (fastapiAvailable) {
-    console.log("⚡ FastAPI optimizer microservice: ✅ ONLINE (port 8000)");
-  } else {
-    console.log("⚠️  FastAPI optimizer microservice: ❌ OFFLINE");
-  }
-
-  if (!flaskAvailable && !fastapiAvailable) {
-    console.log("   → Using basic JS fallback optimizer");
-    console.log("   → To enable advanced optimization, run one of:");
-    console.log("     Flask:   cd python-optimizer && pip install -r requirements.txt && python app.py");
-    console.log("     FastAPI: cd ../optimizer-api && pip install -r requirements.txt && uvicorn main:app --port 8000");
-  }
+  console.log("✅ Advanced JS optimizer active (600+ filler patterns — no Python services needed)");
   console.log("");
 });
