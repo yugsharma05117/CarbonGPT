@@ -1,10 +1,8 @@
-const API = import.meta.env.VITE_API_URL;
-
 export const sendPrompt = async (prompt) => {
   try {
     console.log("Sending request to backend...");
 
-    const res = await fetch(`${API}/prompt`, {
+    const res = await fetch("http://localhost:5000/prompt", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
