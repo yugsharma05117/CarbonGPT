@@ -2,7 +2,8 @@ export const sendPrompt = async (prompt) => {
   try {
     console.log("Sending request to backend...");
 
-    const res = await fetch("http://localhost:5000/prompt", {
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://carbon-gpt.onrender.com";
+    const res = await fetch(`${BACKEND_URL}/prompt`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

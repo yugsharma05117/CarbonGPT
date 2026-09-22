@@ -107,7 +107,7 @@ export default function AnalyzePage() {
       const errorMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'ai',
-        content: 'Sorry, analysis failed. Please check if backend is running on port 5000.',
+        content: 'Sorry, analysis failed. The backend may be temporarily unavailable. Please try again in a moment.',
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMsg]);
