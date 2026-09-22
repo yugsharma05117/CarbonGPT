@@ -73,11 +73,11 @@ app.post("/prompt", async (req, res) => {
     const modelType = routeModel(tokensAfter); // "SLM" or "LLM"
 
     // ✅ Final prompt
-    const finalPrompt = optimizedPrompt + " Give a concise answer in maximum 50 words. Do not exceed the limit.";
+    const finalPrompt = optimizedPrompt + " Answer concisely.";
 
     // ✅ Call Groq (primary) — OpenRouter as last-resort fallback
     let modelResponse = await generateResponse(finalPrompt);
-    let modelUsed = "Groq (llama3-8b)";
+    let modelUsed = "Groq (gpt-oss-120b)";
 
     // Fallback to OpenRouter if Groq failed
     if (!modelResponse || !modelResponse.text || modelResponse.text.includes("unavailable")) {
