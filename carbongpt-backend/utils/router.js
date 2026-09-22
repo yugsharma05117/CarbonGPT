@@ -1,6 +1,6 @@
 function routeModel(tokens) {
-  if (tokens < 20) return "SLM";
-  return "LLM";
+  // Always use Groq (SLM) — fast, free, and reliable
+  return "SLM";
 }
 
 module.exports = { routeModel };

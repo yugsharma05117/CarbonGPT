@@ -75,17 +75,16 @@ app.post("/prompt", async (req, res) => {
     // ✅ Final prompt
     const finalPrompt = optimizedPrompt + " Give a concise answer in maximum 50 words. Do not exceed the limit.";
 
-    // ✅ Call correct model
-    let modelResponse = { text: "No response", outputTokens: 0 };
-    let modelUsed = "";
+    // ✅ Call Groq (primary) — OpenRouter as last-resort fallback
+    let modelResponse = await generateResponse(finalPrompt);
+    let modelUsed = "Groq (llama3-8b)";
 
-    if (modelType === "SLM") {
-      modelResponse = await generateResponse(finalPrompt);
-      modelUsed = "Groq (SLM)";
-    } else {
+    // Fallback to OpenRouter if Groq failed
+    if (!modelResponse || !modelResponse.text || modelResponse.text.includes("unavailable")) {
       modelResponse = await callOpenRouter(finalPrompt);
-      modelUsed = "OpenRouter (LLM)";
+      modelUsed = "OpenRouter (fallback)";
     }
+
 
     // ✅ Safety fallback
     if (!modelResponse) {
