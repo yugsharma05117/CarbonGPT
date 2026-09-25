@@ -12,7 +12,7 @@ export default function ProfilePage({ isDark, setIsDark }: ProfilePageProps) {
 
   const achievements = [
     { title: 'First Optimization', icon: '🌱', color: 'bg-green-500/10 text-green-600', border: 'border-green-500/20' },
-    { title: 'Water Saved', icon: '💧', color: 'bg-blue-500/10 text-blue-600', border: 'border-blue-500/20' },
+    { title: 'Water Save', icon: '💧', color: 'bg-blue-500/10 text-blue-600', border: 'border-blue-500/20' },
     { title: '100 Prompts', icon: '🔥', color: 'bg-amber-500/10 text-amber-600', border: 'border-amber-500/20' },
     { title: 'Weekly Winner', icon: '🏆', color: 'bg-slate-100 dark:bg-gray-700 text-slate-400', border: 'border-slate-200 dark:border-gray-700', locked: true },
   ];
